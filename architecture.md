@@ -1,23 +1,23 @@
-# Simon HTML - Architecture Overview
+# StudyTrack HTML - Architecture Overview
 
 ## Project Description
 
-This is a web-based implementation of the classic Simon memory game, where players repeat sequences of colored button flashes. The project is built as a multi-page HTML application and serves as a learning exercise for web development fundamentals.
+StudyTrack is an application that allows students to enter, organize, and track assignments throughout the semester.
 
 ## Technologies Used
 
 ### Core Technologies
 
 - **HTML5** - Semantic markup for structure and content
-- **SVG** - Scalable Vector Graphics for the game's colored button interface
+- **Images** - JPEG and JPG image assets used by the About page
 - **Bash** - Deployment automation script
 
 ### HTML Features Utilized
 
 - **Semantic HTML Elements**: `<header>`, `<main>`, `<footer>`, `<nav>`, `<menu>`
-- **Forms**: User authentication interface with input fields
-- **Tables**: Displaying high scores and game button layout
-- **SVG Graphics**: Custom-drawn colored buttons using SVG paths
+- **Forms**: Login, registration, and assignment input controls
+- **Tables**: Displaying completed assignments with dates
+- **Lists**: Displaying upcoming assignments and due dates
 - **Meta Tags**: Viewport configuration for responsive behavior
 
 ## Code Structure
@@ -30,29 +30,26 @@ The application consists of four primary HTML pages:
 
 - Entry point to the application
 - Contains login and registration form
-- Email and password input fields
-- Links to all other pages via navigation menu
+- Username and password input fields
 
-#### 2. **play.html** - Game Interface
+#### 2. **myassignments.html** - Assignment Dashboard
 
-- Main game page with interactive Simon buttons
-- Four colored buttons (green, red, blue, yellow) rendered using SVG
-- Score display and reset functionality
-- Real-time notification list showing other players' activities
-- Player name display
+- Displays the StudyTrack header and navigation menu.
+- Shows the current user as “Student Name.”
+- Lists upcoming assignments with their due dates.
+- Provides controls for adding and editing assignments.
 
-#### 3. **scores.html** - High Scores
+#### 3. **completed.html** - Completed Assignments
 
-- Displays leaderboard with top player scores
-- Tabular data showing rank, name, score, and date
-- Sample data includes international player names
+- Displays the StudyTrack header and navigation menu.
+- Provides links to the Home, My Assignments, Completed Assignments, and About pages.
+- Shows a table of completed assignments with their names and dates.
+
 
 #### 4. **about.html** - About Page
 
-- Game description and rules
-- Educational disclaimer about trademark usage
-- Inspirational quote section
-- Placeholder for random image
+- App description 
+- image that fits theme
 
 ### Common Elements
 
@@ -60,7 +57,7 @@ All pages share consistent structure:
 
 **Header**
 
-- Application title: "Simon®"
+- Application title: "StudyTrack®"
 - Navigation menu with links to all four pages
 - Horizontal rule separator
 
@@ -73,14 +70,18 @@ All pages share consistent structure:
 ### File Organization
 
 ```
-simon-html/
-├── index.html          # Home/login page
-├── play.html           # Game interface
-├── scores.html         # High scores leaderboard
-├── about.html          # About page with game info
+studytrack-html/
+├── index.html          # Home and login page
+├── myassignments.html  # Current user and upcoming assignments
+├── completed.html      # Completed assignments table
+├── about.html          # Application description and image
+├── favicon.ico         # Browser tab icon
+├── Assignmentphoto.jpeg # Assignment-related image asset
+├── placeholder.jpg     # Placeholder image asset
 ├── README.md           # Project documentation
 ├── notes.md            # Development notes
 ├── deployFiles.sh      # Deployment script
+├── architecture.md     # Architecture documentation
 └── LICENSE             # License file
 ```
 
@@ -102,20 +103,13 @@ The codebase emphasizes semantic HTML5 elements to provide meaningful structure:
 
 Currently, all content is static HTML with hardcoded data. Notable static features:
 
-- Sample high scores in scores.html
-- Hardcoded notification list in play.html
+- Hardcoded upcoming assignments in myassignments.html
+- Hardcoded completed assignments in completed.html
 - No external CSS or JavaScript files (pure HTML)
 
-## SVG Button Design
+## Assignment Data Presentation
 
-The game interface uses inline SVG to create four distinctive colored buttons:
-
-- **Green Button** (top-left): Quadratic curve from top-right
-- **Red Button** (top-right): Quadratic curve from top-left
-- **Blue Button** (bottom-left): Quadratic curve from bottom-right
-- **Yellow Button** (bottom-right): Quadratic curve from bottom-left
-
-Each button is created using SVG `<path>` elements with quadratic curves (Q command) to create rounded corners.
+The assignment dashboard uses a list for upcoming work, with each item showing an assignment name and due date. The completed assignments page uses a table because the information is organized into rows and columns. The add and edit controls are currently presentational HTML controls and do not yet save changes.
 
 ## Deployment
 
@@ -136,22 +130,22 @@ The project includes a deployment script (`deployFiles.sh`) that:
 
 As an HTML-only deliverable, the application has several limitations:
 
-- **No Styling**: No CSS, relying on old-style HTML formatting (`<hr>`, `<br>`)
-- **No Interactivity**: No JavaScript, buttons are non-functional
-- **No Backend**: No server-side logic or data persistence
-- **Static Data**: All scores and notifications are hardcoded
+- **Limited Styling**: The pages currently rely mostly on browser-default HTML styling and elements such as `<hr>` and `<br>`.
+- **No Interactivity**: No JavaScript is connected, so login, add, and edit buttons are non-functional.
+- **No Backend**: No server-side logic or data persistence is implemented.
+- **Static Data**: Assignment names, users, and dates are hardcoded in the HTML.
 
 ## Future Enhancements
 
-Based on the README, future iterations will add:
+Future iterations could add:
 
 - **CSS**: Styling, color schemes, and responsive design
-- **JavaScript**: Game logic, button interactions, and dynamic content
+- **JavaScript**: Form handling, assignment editing, filtering, and dynamic content
 - **Backend Services**: Node.js/Express server for data persistence
-- **Database**: Store user accounts and high scores
-- **WebSocket**: Real-time multiplayer notifications
+- **Database**: Store user accounts and assignments
+- **Notifications**: Reminders for upcoming due dates
 - **Authentication**: Working login/registration system
-- **React**: Modern frontend framework integration
+- **React**: Modern frontend framework integration, if needed
 
 ## HTML Element Critique
 
@@ -165,8 +159,8 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 <nav>
   <menu>
     <li><a href="index.html">Home</a></li>
-    <li><a href="play.html">Play</a></li>
-    <li><a href="scores.html">Scores</a></li>
+    <li><a href="myassignments.html">My assignments</a></li>
+    <li><a href="completed.html">Completed assignments</a></li>
     <li><a href="about.html">About</a></li>
   </menu>
 </nav>
@@ -191,8 +185,8 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 <nav aria-label="Main navigation">
   <ul>
     <li><a href="index.html" aria-current="page">Home</a></li>
-    <li><a href="play.html">Play</a></li>
-    <li><a href="scores.html">Scores</a></li>
+    <li><a href="myassignments.html">My assignments</a></li>
+    <li><a href="completed.html">Completed assignments</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
 </nav>
@@ -283,7 +277,7 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 
 ```html
 <header>
-  <h1>Simon<sup>&reg;</sup></h1>
+  <h1>StudyTrack<sup>&reg;</sup></h1>
   <nav>...</nav>
   <hr />
 </header>
@@ -308,7 +302,7 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 ```html
 <!-- With CSS -->
 <header class="header">
-  <h1>Simon<sup>&reg;</sup></h1>
+  <h1>StudyTrack<sup>&reg;</sup></h1>
   <nav>...</nav>
 </header>
 
@@ -399,7 +393,7 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 
 ---
 
-### 5. Table Layout for Game Buttons
+### 5. Completed Assignments Table
 
 **Current Implementation:**
 
@@ -430,62 +424,37 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 
 **Cons:**
 
-- **Misuse of semantic HTML**: Tables should be for tabular data, not layout
-- Fails accessibility - screen readers announce as data table
-- Not responsive - difficult to adapt for mobile
-- Verbose markup
-- Against modern best practices
+- No `<caption>` describes the table
+- Header cells do not use `scope="col"`
+- Dates are plain text rather than machine-readable `<time>` elements
+- The table is static and cannot be sorted or filtered
 
-**Suggested Alternative (CSS Grid):**
+**Suggested Alternative:**
 
 ```html
-<div class="game-board" role="group" aria-label="Simon game buttons">
-  <button aria-label="Green button" class="game-button game-button--green">
-    <svg aria-hidden="true" viewBox="0 0 100 100" height="100" width="100">
-      <path d="M 95,5 95,95 5,95 Q 5,5 95,5" fill="green" />
-    </svg>
-  </button>
-  <button aria-label="Red button" class="game-button game-button--red">
-    <svg aria-hidden="true" viewBox="0 0 100 100" height="100" width="100">
-      <path d="M5,5 5,95 95,95 Q 95,5 5,5" fill="red" />
-    </svg>
-  </button>
-  <button aria-label="Blue button" class="game-button game-button--blue">
-    <svg aria-hidden="true" viewBox="0 0 100 100" height="100" width="100">
-      <path d="M5,5 95,5 95,95 Q 5,95 5,5" fill="blue" />
-    </svg>
-  </button>
-  <button aria-label="Yellow button" class="game-button game-button--yellow">
-    <svg aria-hidden="true" viewBox="0 0 100 100" height="100" width="100">
-      <path d="M95,5 5,5 5,95 Q 95,95 95,5" fill="yellow" />
-    </svg>
-  </button>
-</div>
+<table>
+  <caption>Completed assignments</caption>
+  <thead>
+    <tr>
+      <th scope="col">Completed</th>
+      <th scope="col">Assignment</th>
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+</table>
 
 <style>
-  .game-board {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
-  @media (max-width: 480px) {
-    .game-board {
-      grid-template-columns: 1fr;
-    }
+  table {
+    border-collapse: collapse;
   }
 </style>
 ```
 
 **Improvements:**
 
-- Semantic: Uses `<div>` for layout, not table elements
-- Responsive: Easy to change grid on mobile
-- Accessible: Proper ARIA labels and roles
-- Modern: Uses CSS Grid
-- Cleaner markup
+- Adds a caption to explain the table's purpose
+- Uses `scope="col"` to associate headers with their columns
+- Keeps the table semantics appropriate for assignment data
 
 ---
 
