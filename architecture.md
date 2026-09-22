@@ -205,7 +205,7 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 **Current Implementation:**
 
 ```html
-<form method="get" action="play.html">
+<form method="get" action="myassignments.html">
   <div>
     <span>@</span>
     <input type="text" placeholder="your@email.com" />
@@ -489,7 +489,7 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 ```html
 <div class="score-display">
   <span id="score-label">Score</span>
-  <output id="count" for="game-board" aria-labelledby="score-label">0</output>
+  <output id="count" aria-labelledby="score-label">0</output>
 </div>
 ```
 
@@ -521,7 +521,7 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 
 ---
 
-### 7. SVG Button Implementation
+### 7. Assignment Button Implementation
 
 **Current Implementation:**
 
@@ -551,7 +551,7 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 **Suggested Alternative:**
 
 ```html
-<button class="game-button" data-color="green" aria-label="Green button - Top left" data-position="1">
+<button class="assignment-button" aria-label="Add assignment">
   <svg aria-hidden="true" viewBox="0 0 100 100" width="100%" height="100%">
     <path d="M 95,5 95,95 5,95 Q 5,5 95,5" fill="currentColor" />
   </svg>
@@ -559,7 +559,7 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 </button>
 
 <style>
-  .game-button {
+  .assignment-button {
     position: relative;
     padding: 0;
     border: 2px solid #333;
@@ -570,17 +570,17 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
       filter 0.1s;
   }
 
-  .game-button[data-color='green'] {
+  .assignment-button {
     color: green;
   }
 
-  .game-button:hover,
-  .game-button:focus {
+  .assignment-button:hover,
+  .assignment-button:focus {
     transform: scale(1.05);
     filter: brightness(1.2);
   }
 
-  .game-button:active {
+  .assignment-button:active {
     transform: scale(0.95);
   }
 
@@ -609,15 +609,15 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 
 ---
 
-### 8. Notification List
+### 8. Assignment List
 
 **Current Implementation:**
 
 ```html
 <ul class="notification">
-  <li class="player-name">Tim started a new game</li>
-  <li class="player-name">Ada started a new game</li>
-  <li class="player-name">Tim scored 337</li>
+  <li class="assignment-item">Calc HW 2.1 is due May 15, 2023</li>
+  <li class="assignment-item">Read Chapter 5 is due May 20, 2023</li>
+  <li class="assignment-item">Write Reflection is due May 25, 2023</li>
 </ul>
 ```
 
@@ -628,7 +628,7 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 
 **Cons:**
 
-- Class name mismatch: `class="player-name"` on `<li>` instead of span
+- Assignment items could use a more descriptive class name
 - No ARIA live region for dynamic updates
 - No timestamps or additional context
 - Static hardcoded data
@@ -638,23 +638,19 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 
 ```html
 <section class="notifications" aria-labelledby="notifications-heading">
-  <h2 id="notifications-heading" class="visually-hidden">Player Activity</h2>
-  <ul class="notification-list" role="feed" aria-live="polite" aria-atomic="false">
+  <h2 id="assignments-heading" class="visually-hidden">Upcoming Assignments</h2>
+  <ul class="assignment-list" aria-labelledby="assignments-heading">
     <li class="notification-item" role="article">
-      <span class="player-name">Tim</span>
-      <span class="notification-text">started a new game</span>
-      <time datetime="2026-01-19T10:30:00" class="notification-time">2 min ago</time>
+      <span class="assignment-name">Calc HW 2.1</span>
+      <span class="assignment-text">Due May 15, 2023</span>
     </li>
     <li class="notification-item" role="article">
-      <span class="player-name">Ada</span>
-      <span class="notification-text">started a new game</span>
-      <time datetime="2026-01-19T10:28:00" class="notification-time">4 min ago</time>
+      <span class="assignment-name">Read Chapter 5</span>
+      <span class="assignment-text">Due May 20, 2023</span>
     </li>
     <li class="notification-item notification-item--score" role="article">
-      <span class="player-name">Tim</span>
-      <span class="notification-text">scored</span>
-      <strong class="score">337</strong>
-      <time datetime="2026-01-19T10:25:00" class="notification-time">7 min ago</time>
+      <span class="assignment-name">Write Reflection</span>
+      <span class="assignment-text">Due May 25, 2023</span>
     </li>
   </ul>
 </section>
@@ -664,7 +660,7 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 
 - `aria-live="polite"` announces new notifications
 - Semantic `<time>` elements with machine-readable dates
-- Better structure separating player names from actions
+- Better structure separating assignment names from due dates
 - Roles indicate feed of articles
 - Section with accessible heading
 - Classes match semantic meaning
@@ -717,14 +713,14 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 ```html
 <table class="scores-table">
   <caption>
-    Top Player High Scores
+    Completed Assignments
   </caption>
   <thead>
     <tr>
       <th scope="col" aria-sort="none">Rank</th>
-      <th scope="col" aria-sort="none">Player Name</th>
-      <th scope="col" aria-sort="descending">Score</th>
-      <th scope="col" aria-sort="none">Date Achieved</th>
+      <th scope="col" aria-sort="none">Assignment</th>
+      <th scope="col" aria-sort="none">Completed</th>
+      <th scope="col" aria-sort="none">Date Completed</th>
     </tr>
   </thead>
   <tbody>
@@ -794,7 +790,7 @@ This section analyzes the HTML elements used throughout the codebase, highlighti
 
 ```html
 <figure class="picture-box">
-  <img src="placeholder.jpg" alt="A random inspirational image to motivate Simon players" width="400" height="300" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+  <img src="placeholder.jpg" alt="An inspirational image for StudyTrack students" width="400" height="300" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
   <div class="image-fallback" style="display: none;">
     <p>Image not available</p>
   </div>
